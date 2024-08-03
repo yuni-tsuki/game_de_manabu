@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            let ctx;
+
+            function init() {
+                setInterval(drawClock, 50);
+            }
+
+            function drawClock() {
+                let canvas = document.getElementById("canvas");
+                canvas.width = canvas.width;    //canvasをすべてクリア
+                ctx = canvas.getContext("2d");
+
+                let now = new Date();
+                let hour = now.getHours() % 12;
+                let minute = now.getMinutes();
+                let second = now.getSeconds();
+
+                drawDial(ctx);
+                drawHands(ctx, hour, minute, second);
+
+                document.getElementById("hour").textContent = ('00' + hour).slice(-2);
+                document.getElementById("minute").textContent = ('00' + minute).slice(-2);
+                document.getElementById("second").textContent = ('00' + second).slice(-2);
+            }
+
+            function drawDial(ctx) {
+                for (let i = 0; i < 60; i++) {
+                    ctx.save();
+                    let r = (Math.PI / 30) * i;
+                    ctx.translate(100, 100);
+                    ctx.rotate(r);
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, -60);
+                    ctx.lineTo(0, -50);
+                    if (i % 5 == 0) {
+                        ctx.lineWidth = 2;
+                    } else {
+                        ctx.lineWidth = 1;
+                    }
+                    ctx.stroke();
+
+                    ctx.restore();
+                }
+            }
+
+            function drawHands(ctx, hour, minute, second) {
+                
+                // 3本の針の角度を求める
+                let radH = ((Math.PI * 2) / 12) * hour + ((Math.PI * 2) / 12) * (minute / 60);
+                let radM = ((Math.PI * 2) / 60) * minute;
+                let radS = ((Math.PI * 2) / 60) * second;
+
+                // 短針を描く
+                ctx.save();
+                ctx.translate(100, 100);
+                ctx.rotate(radH);
+
+                ctx.beginPath();
+                ctx.lineWidth = 3;
+                ctx.moveTo(0, -30);
+                ctx.lineTo(0, 0);
+                ctx.stroke();
+                ctx.restore();
+
+                // 長針を描く
+                ctx.save();
+                ctx.translate(100, 100);
+                ctx.rotate(radM);
+
+                ctx.beginPath();
+                ctx.lineWidth = 2;
+                ctx.moveTo(0, -50);
+                ctx.lineTo(0, 0);
+                ctx.stroke();
+                ctx.restore();
+
+                // 秒針を描く
+                ctx.save();
+                ctx.translate(100, 100);
+                ctx.rotate(radS);
+
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.moveTo(0, -50);
+                ctx.lineTo(0, 0);
+                ctx.stroke();
+                ctx.restore();
+            }
+        </script>
+    </head>
+    <body onload="init()">
+        <canvas id="canvas" width="200" height="200"></canvas>
+        <p><span id="hour"></span>:<span id="minute"></span>:<span id="second"></span> GNT +0900 (日本標準時)</p>
+    </body>
+</html>

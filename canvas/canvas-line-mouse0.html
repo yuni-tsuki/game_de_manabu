@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                let canvas = document.getElementById("canvas");
+                let ctx = canvas.getContext("2d");
+                let x = 0, y = 0
+                let isDrawing = false;
+
+                canvas.addEventListener("mousedown", (e) => {
+                    x = e.offsetX;
+                    y = e.offsetY;
+                    isDrawing = true;
+                });
+
+
+                window.addEventListener("mouseup", (e) => {
+                    if(isDrawing) {
+                        drawLine(ctx, x, y, e.offsetX, e.offsetY);
+                        x = 0;
+                        y = 0;
+                        isDrawing = false;
+                    }
+                });
+                
+                function drawLine(ctx, x1, y1, x2, y2) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = "black";
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <h1>マウスイベントを使ったお絵描き</h1>
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </body>
+</html>

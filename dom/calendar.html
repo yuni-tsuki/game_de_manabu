@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            video {
+                width: 600px;
+                box-shadow: 10px 10px 10px rgba(0, 0, 0 0.4);
+            }
+            h2 {
+                color: #0094ff;
+                text-align: center;
+            }
+            td {
+                font-size: 28px;
+                text-align: center;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .red {
+                color: red;
+            }
+            #daysOfTheWeek td {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+            td:first-child {
+                color: red;
+            }
+            table {
+                margin: 20px;
+            }
+        </style>
+        <script>
+            function play() {
+                document.getElementById("video").play();
+            }
+            function makeDate() {
+                let year = document.getElementById("year").value;
+                let month = document.getElementById("month").value - 1;
+                const daysOfMonth = [31, 28 + checkLeap(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                let daysOfCalendar_element = document.getElementById("daysOfCalendar");
+                daysOfCalendar_element.innerHTML = "";
+                let day = 1;
+                let gap = calculateGap(year, month);
+
+                let trElement = document.createElement("tr");
+                for (let i = 0; i < gap; i++) {
+                    let tdElement = document.createElement("td");
+                    trElement.appendChild(tdElement);
+                }
+                for (let i = gap; i < 7; i++) {
+                    let tdElement = document.createElement("td");
+                    tdElement.textContent = String(day++);
+                    trElement.appendChild(tdElement);
+                }
+                daysOfCalendar_element.appendChild(trElement);
+
+                while (day <= daysOfMonth[month]) {
+                    trElement = document.createElement("tr");
+                    for (let i = 0; i < 7 && day <= daysOfMonth[month]; i++) {
+                        let tdElement = document.createElement("td");
+                        tdElement.textContent = String(day++);
+                        trElement.appendChild(tdElement);
+                    }
+                    daysOfCalendar_element.appendChild(trElement);
+                }
+            }
+
+            function calculateGap(year, month) {
+                let date = new Date(year, month, 1);
+                return date.getDay();
+            }
+
+            function checkLeap(year) {
+                if (year % 4 != 0) {
+                    return 0;
+                }else if (year % 100 != 0) {
+                    return 1;
+                }else if (year % 400 != 0) {
+                    return 0;
+                }else {
+                    return 1;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h2><input id="year">年<input id="month">月カレンダー</h2>
+        <button onclick="makeDate()">カレンダーをみる</button>
+        <table id="calendar">
+            <tr>
+                <td colspan="7">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/tly_NwJPwQc?si=Sjx5418Wm8rodALe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </td>
+            </tr>
+            <tr id="daysOfTheWeek">
+                <td>日</td>
+                <td>月</td>
+                <td>火</td>
+                <td>水</td>
+                <td>木</td>
+                <td>金</td>
+                <td>土</td>
+            </tr>
+            <tbody id="daysOfCalendar"></tbody>
+        </table>
+    </body>
+</html>

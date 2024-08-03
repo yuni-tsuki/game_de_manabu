@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            #field {
+                width: 400px;
+                height: 400px;
+            }
+        </style>
+        <script>
+            function init() {
+                const tomato = document.getElementById("tomato");
+                const eggplant = document.getElementById("eggplant");
+                const onion = document.getElementById("onion");
+                const lettuce = document.getElementById("lettuce");
+
+                let field = document.getElementById("field");
+                let ctx = field.getContext("2d");
+
+                ctx.drawImage(tomato, 10, 10);
+                ctx.drawImage(eggplant, 200, 10, 100, 200);
+                ctx.drawImage(onion, 10, 100, 200, 100);
+                ctx.drawImage(lettuce, 200, 200, 200, 200);
+            }
+        </script>
+    </head>
+    <body onload="init()">
+        <canvas id="field" width="400" height="400"></canvas>
+        <img id="tomato" src="image/tomato.png" style="display: none">
+        <img id="eggplant" src="image/eggplant.png" style="display: none">
+        <img id="onion" src="image/onion.png" style="display: none">
+        <img id="lettuce" src="image/lettuce.png" style="display: none">
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            let ctx;
+            function init(){
+                let canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+
+                ctx.fillStyle = "#5D8165";
+                ctx.strokeStyle = "#FFFFFF";
+
+                const scale = 6
+                const marginSpace = 10;
+                const goalLine = 50 * scale;
+                const touchLine = 68 * scale;
+                const radiusOfCenterCircle = 7 * scale;
+                const widthOfPenaltyArea = 18 * scale;
+                const depthOfPenaltyArea = 12 * scale;
+                const distanceBetweenPenaltyAreaAndTouchLine = (goalLine - widthOfPenaltyArea) / 2;
+                
+                ctx.fillRect(marginSpace, marginSpace, touchLine, goalLine);
+                
+                ctx.strokeRect(marginSpace, distanceBetweenPenaltyAreaAndTouchLine + marginSpace, depthOfPenaltyArea, widthOfPenaltyArea);
+                ctx.strokeRect(marginSpace + touchLine - depthOfPenaltyArea, distanceBetweenPenaltyAreaAndTouchLine + marginSpace, depthOfPenaltyArea, widthOfPenaltyArea);
+
+                ctx.beginPath();
+                ctx.moveTo(touchLine / 2 + marginSpace, marginSpace);
+                ctx.lineTo(touchLine / 2 + marginSpace, marginSpace + goalLine);
+                ctx.stroke();
+                ctx.closePath();
+
+                
+                ctx.beginPath();
+                ctx.arc(touchLine / 2 + marginSpace, goalLine / 2 + marginSpace, radiusOfCenterCircle, 0, 2*Math.PI);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        </script>
+    </head>
+    <body onload="init()">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            let car = {
+                speed: 60,
+                gasoline: 150
+            };
+            function checkCar() {
+                document.getElementById("speed").textContent = car.speed + "km/h";
+                document.getElementById("gasoline").textContent  = car.gasoline + "L";
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="checkCar()">性能を見る</button>
+        <h1>スピード：<span id="speed"></span> ガソリン：<span id="gasoline"></span></h1>
+    </body>
+</html>

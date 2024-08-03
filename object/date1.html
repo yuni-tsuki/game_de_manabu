@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            let startTime;
+            let stopTime;
+
+            function start() {
+                let now = new Date;
+                startTime = now.getTime();
+            }
+
+            function stop() {
+                let now = new Date;
+                stopTime = now.getTime();
+                let result = (stopTime - startTime) / 1000;
+                document.getElementById("result").textContent = result;
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="start()">スタート</button>
+        <button onclick="stop()">ストップ</button>
+        <h2><span id="result"></span>秒</h2>
+    </body>
+</html>
